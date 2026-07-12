@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head><title>Engineering Wiki - Deployment Guide</title></head>
+<body>
+<h1>Internal Engineering Wiki</h1>
+
+<h2>Deployment Process</h2>
+<p>All production deployments go through the CI/CD pipeline. Code must pass
+unit tests, integration tests, and a manual QA sign-off before merging to
+the release branch. Deployments happen every Tuesday and Thursday at 2 PM UTC.</p>
+
+<h2>Architecture Overview</h2>
+<p>Our backend runs on a microservices architecture with services communicating
+via gRPC. The primary data store is PostgreSQL, with Redis used for caching
+and session storage. All services are containerized with Docker and
+orchestrated via Kubernetes.</p>
+
+<h2>On-Call Rotation</h2>
+<p>Engineers are on-call for one week at a time, rotating every Monday.
+On-call engineers must acknowledge alerts within 15 minutes during business
+hours and 30 minutes outside business hours.</p>
+
+<h2>Code Review Standards</h2>
+<p>All pull requests require at least one approval before merging. Critical
+system changes require two approvals, including one from a senior engineer.</p>
+</body>
+</html>
