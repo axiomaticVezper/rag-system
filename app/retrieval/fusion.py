@@ -6,7 +6,7 @@ scores), which sidesteps the problem of dense (cosine, ~0-1) and BM25
 """
 
 from __future__ import annotations
-
+from app.retrieval.reranker import rerank
 from app.core.models import AccessLevel
 from app.retrieval.dense_search import dense_search
 from app.retrieval.sparse_search import sparse_search
@@ -52,6 +52,7 @@ def hybrid_search(
     user_clearance: AccessLevel,
     top_k: int = 5,
     candidate_pool_size: int = 20,
+    use_reranker: bool = True,
 ) -> list[dict]:
     """
     Run dense and sparse search in parallel (conceptually; sequential here
@@ -65,4 +66,10 @@ def hybrid_search(
     sparse_results = sparse_search(query, user_clearance, top_k=candidate_pool_size)
 
     fused = reciprocal_rank_fusion(dense_results, sparse_results)
+    if use_reranker:
+        # Rerank a slightly wider slice than top_k so the cross-encoder
+        # has real alternatives to compare, not just the already-final list.
+        shortlist = fused[: max(top_k * 3, 10)]
+        return rerank(query, shortlist, top_k=top_k)
+
     return fused[:top_k]
