@@ -63,3 +63,19 @@ class Document(BaseModel):
     model_config = {
         "use_enum_values": False,
     }
+class Chunk(BaseModel):
+    """
+    A single retrievable unit produced by splitting a Document's content.
+
+    Carries doc_id and access_level forward from its parent Document. This
+    is how RBAC survives chunking: at retrieval time, we filter directly on
+    each chunk's own access_level rather than re-looking-up its parent.
+    """
+
+    chunk_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    doc_id: str
+    doc_title: str
+    access_level: AccessLevel
+    chunk_index: int
+    content: str
+    token_count: int
