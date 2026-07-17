@@ -73,3 +73,17 @@ def index_chunks(chunks: list[Chunk]) -> int:
 
     client.upsert(collection_name=COLLECTION_NAME, points=points)
     return len(points)
+
+def reset_collection() -> None:
+    """
+    Delete the collection entirely and recreate it empty. Useful for
+    clearing out accumulated test data or recovering from a corrupted
+    state (e.g. after an unclean Qdrant shutdown).
+    """
+    client = _get_client()
+    existing = [c.name for c in client.get_collections().collections]
+
+    if COLLECTION_NAME in existing:
+        client.delete_collection(collection_name=COLLECTION_NAME)
+
+    ensure_collection_exists()
