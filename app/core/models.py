@@ -79,3 +79,16 @@ class Chunk(BaseModel):
     chunk_index: int
     content: str
     token_count: int
+class Answer(BaseModel):
+    """
+    Structured output from the generation step.
+
+    citations refers to the index (0-based) of chunks in the list that was
+    passed to the generator -- e.g. citations=[0, 2] means the answer draws
+    on the 1st and 3rd retrieved chunks. This lets the caller map back to
+    the actual source documents for display.
+    """
+
+    answer: str
+    citations: list[int] = Field(default_factory=list)
+    confidence_score: float = Field(ge=0.0, le=1.0)
