@@ -1,0 +1,32 @@
+[
+  {
+    "question": "What are the office hours?",
+    "expected_answer": "Office hours are 9:00 AM to 6:00 PM, Monday through Friday.",
+    "access_level": "public"
+  },
+  {
+    "question": "What is the remote work policy?",
+    "expected_answer": "Employees may work remotely up to 3 days per week, with full remote arrangements requiring director-level approval.",
+    "access_level": "public"
+  },
+  {
+    "question": "When do production deployments happen?",
+    "expected_answer": "Deployments happen every Tuesday and Thursday at 2 PM UTC.",
+    "access_level": "internal"
+  },
+  {
+    "question": "How many approvals are required for critical system changes?",
+    "expected_answer": "Critical system changes require two approvals, including one from a senior engineer.",
+    "access_level": "internal"
+  },
+  {
+    "question": "What was the total Q3 revenue?",
+    "expected_answer": "Total Q3 revenue reached 4.2 million dollars, an 18 percent increase over Q2.",
+    "access_level": "confidential"
+  },
+  {
+    "question": "What is the gross margin?",
+    "expected_answer": "Gross margin stands at 62 percent, up from 58 percent last quarter.",
+    "access_level": "confidential"
+  }
+]
