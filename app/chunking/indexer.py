@@ -14,7 +14,8 @@ from app.chunking.embedder import EMBEDDING_DIMENSION, embed_texts
 from app.core.models import Chunk
 
 COLLECTION_NAME = "rag_chunks"
-QDRANT_URL = "http://localhost:6333"
+import os
+QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6333")
 
 _client: QdrantClient | None = None
 
