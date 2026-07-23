@@ -2,8 +2,6 @@
 
 A production-grade **Retrieval-Augmented Generation (RAG)** system built from scratch — no tutorial shortcuts. It ingests documents, chunks and indexes them into a vector database, retrieves the most relevant content using hybrid search, and generates grounded, cited answers using a local LLM. Access to documents is enforced at every layer via Role-Based Access Control (RBAC).
 
-Built as a portfolio project targeting senior engineering roles at AI-first companies.
-
 ---
 
 ## Architecture
