@@ -15,11 +15,6 @@ jobs:
         image: qdrant/qdrant:latest
         ports:
           - 6333:6333
-        options: >-
-          --health-cmd "curl -f http://localhost:6333 || exit 1"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
 
     steps:
       - name: Checkout code
@@ -34,10 +29,18 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Wait for Qdrant to be ready
+        run: |
+          for i in {1..30}; do
+            curl -sf http://localhost:6333 && echo "Qdrant ready" && break
+            echo "Waiting for Qdrant... attempt $i"
+            sleep 2
+          done
+
       - name: Run ingestion pipeline to populate Qdrant
         run: python scripts/run_ingestion_pipeline.py
 
-      - name: Run deterministic tests (skip LLM-dependent tests)
+      - name: Run deterministic tests
         run: |
           pytest -v \
             --ignore=tests/test_ollama_generator.py \
